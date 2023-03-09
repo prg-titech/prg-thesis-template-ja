@@ -1,7 +1,7 @@
 MAKEFLAGS += --silent
 
 APP := thesis
-SUBDIRS := 
+SUBDIRS :=
 
 LATEX := platex
 LFLAGS := -halt-on-error -synctex=1 -kanji=UTF8
@@ -20,20 +20,16 @@ pdf: $(APP).pdf
 	$(BIBTEX) $(APP)
 	$(LATEX) $(LFLAGS) $(APP)
 	$(LATEX) $(LFLAGS) $(APP)
+
 .dvi.pdf:
 	$(DVIPDF) $(APP)
 
-clean: 
+clean:
 	rm -f *.pdf *.out *aux *bbl *blg *log *toc *.ptb *.tod *.fls *.fdb_latexmk *.lof
-	$(MAKE) -C $? clean
 
 distclean:
 	rm -f *.pdf *.dvi
 
 clean-all: clean distclean
 
-view:
-	open -a Skim $(APP).pdf
-
 .PHONY: all clean distclean clean-all $(SUBDIRS)
-
