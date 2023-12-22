@@ -1,8 +1,5 @@
 MAKEFLAGS += --silent
 
-APP := thesis
-SUBDIRS :=
-
 LATEX := platex
 LFLAGS := -halt-on-error -synctex=1 -kanji=UTF8
 BIBTEX := pbibtex
@@ -10,26 +7,23 @@ DVIPDF := dvipdfmx
 
 .SUFFIXES: .bib .tex .dvi .pdf
 
-all: $(APP).pdf
+all: thesis outline
 
-dvi: $(APP).dvi
-pdf: $(APP).pdf
+thesis: thesis.tex
+	$(LATEX) $(LFLAGS) thesis
+	-$(BIBTEX) thesis
+	$(LATEX) $(LFLAGS) thesis
+	$(LATEX) $(LFLAGS) thesis
+	$(DVIPDF) thesis
 
-.tex.dvi:
-	$(LATEX) $(LFLAGS) $(APP)
-	$(BIBTEX) $(APP)
-	$(LATEX) $(LFLAGS) $(APP)
-	$(LATEX) $(LFLAGS) $(APP)
-
-.dvi.pdf:
-	$(DVIPDF) $(APP)
+outline: outline.tex
+	$(LATEX) $(LFLAGS) outline
+	-$(BIBTEX) outline
+	$(LATEX) $(LFLAGS) outline
+	$(LATEX) $(LFLAGS) outline
+	$(DVIPDF) outline
 
 clean:
-	rm -f *.pdf *.out *aux *bbl *blg *log *toc *.ptb *.tod *.fls *.fdb_latexmk *.lof
+	rm -f *.pdf *.out *.aux *.bbl *.blg *.log *.toc *.ptb *.tod *.fls *.fdb_latexmk *.lof *.lot *.dvi *.synctex.gz
 
-distclean:
-	rm -f *.pdf *.dvi
-
-clean-all: clean distclean
-
-.PHONY: all clean distclean clean-all $(SUBDIRS)
+.PHONY: all clean distclean
