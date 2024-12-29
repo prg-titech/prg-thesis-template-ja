@@ -10,6 +10,23 @@
 \documentclass[11pt,oneside]{jbook}
 \usepackage{csg-thesis}
 \usepackage{graphicx,url}
+\usepackage{xcolor}
+
+
+%%%% macros to add comments
+\newif\ifdraftComments
+\draftCommentsfalse
+\def\mkDraftFn#1#2{%
+  \expandafter\def\csname #1\endcsname##1{\ifdraftComments\textcolor{#2}{[#1: ##1]}\marginpar[$\longrightarrow$]{$\longleftarrow$}\fi}%
+}
+\mkDraftFn{MY}{blue}
+\mkDraftFn{YT}{red}
+\mkDraftFn{YC}{red}
+\mkDraftFn{HM}{red}
+
+\draftCommentstrue
+
+
 
 \begin{document}
 
